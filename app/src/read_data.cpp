@@ -7,6 +7,8 @@
 #include <sstream>
 #include <vector>
 #include <set>
+#include <cmath>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -122,13 +124,98 @@ void read_data(string fn, int students, int exams)
 
     cout << "Degree Max: " << max << endl;
 
+    int min = max;
+    for (int i = 0; i < exams; i++)
+    {
+        int tempmin = 0;
+        for (int j = 0; j < exams; j++)
+        {
+            if (adj_matrix[i * exams + j] > 0)
+            {
+                tempmin++;
+            }
+        }
+        if (tempmin < min)
+        {
+            min = tempmin;
+        }
+    }
+
+    cout << "Degree Min: " << min << endl;
+
+    double mean = double(c) / double(exams);
+    cout << "Degree Mean: " << mean << endl;
+
+    double typiki = 0;
+    vector<int> degreeallnumbers;
+
+    for (int i = 0; i < exams; i++)
+        {
+            int c =0;
+            for  (int j = 0; j < exams; j++)
+            {   
+                if (adj_matrix[i * exams + j] > 0)
+                    c++;
+            }
+            double temptypiki=c-mean;
+            typiki += temptypiki*temptypiki;
+            degreeallnumbers.push_back(c);
+        }
+        typiki = (typiki/(double)(exams));
+        double cv = (sqrt(typiki) / mean) *100;
+
+    cout << "CV: " << cv << endl;
+
+    sort(degreeallnumbers.begin(), degreeallnumbers.end());
+
+    int indexmedian;
+
+    if (degreeallnumbers.size() % 2 == 0) {
+        indexmedian = degreeallnumbers.size() / 2;
+    } else {
+        indexmedian = (degreeallnumbers.size() + 1) / 2;
+    }
+
+    double median = degreeallnumbers[indexmedian];
+
+    cout << "Degree Median: " << median << endl;
+
     delete[] adj_matrix;
 }
 
 int main()
 {
-    //    read_data("../datasets/car-f-92.stu", 18419, 543);
+    cout << "car-f-92.stu" << endl;
+    read_data("../datasets/car-f-92.stu", 18419, 543);
+    cout << "car-s-91.stu" << endl;
+    read_data("../datasets/car-s-91.stu", 16925, 682);
+    cout << "ear-f-83.stu" << endl;
+    read_data("../datasets/ear-f-83.stu", 1125, 190);
+    cout << "hec-s-92.stu" << endl;
     read_data("../datasets/hec-s-92.stu", 2823, 81);
+    cout << "kfu-s-93.stu" << endl;
+    read_data("../datasets/kfu-s-93.stu", 5349, 461);
+    cout << "lse-f-91.stu" << endl;
+    read_data("../datasets/lse-f-91.stu", 2726, 381);
+    cout << "kfu-s-93.stu" << endl;
+    read_data("../datasets/kfu-s-93.stu", 5349, 461);
+    cout << "lse-f-91.stu" << endl;
+    read_data("../datasets/lse-f-91.stu", 2726, 381);
+    cout << "pur-s-93.stu" << endl;
+    read_data("../datasets/pur-s-93.stu", 30029, 2419);
+    cout << "rye-s-93.stu" << endl;
+    read_data("../datasets/rye-s-93.stu", 11483, 486);
+    cout << "sta-f-83.stu" << endl;
+    read_data("../datasets/sta-f-83.stu", 611, 139);
+    cout << "tre-s-92.stu" << endl;
+    read_data("../datasets/tre-s-92.stu", 4360, 261);
+    cout << "uta-s-92.stu" << endl;
+    read_data("../datasets/uta-s-92.stu", 21266, 622);
+    cout << "ute-s-92.stu" << endl;
+    read_data("../datasets/ute-s-92.stu", 2749, 184);
+    cout << "yor-f-83.stu" << endl;
+    read_data("../datasets/yor-f-83.stu", 941, 181);
+
     // read_data("../datasets/toy_e5_s6.stu", 6, 5);
 }
 
